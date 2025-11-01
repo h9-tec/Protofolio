@@ -590,52 +590,97 @@ Type 'help' to see available commands.`;
 
   return (
     <div 
-      className="min-h-screen bg-[#300a24] text-[#ffffff] font-mono p-4 relative overflow-hidden"
+      className="min-h-screen bg-black text-[#00ff00] font-mono p-4 relative overflow-hidden"
       onClick={() => inputRef.current?.focus()}
+      style={{ 
+        fontFamily: '"Courier New", Courier, monospace',
+        textShadow: '0 0 5px rgba(0, 255, 0, 0.5)'
+      }}
     >
       {/* Nerdy background image with overlay */}
       <div 
-        className="fixed inset-0 bg-cover bg-right-top bg-no-repeat opacity-20 pointer-events-none"
+        className="fixed inset-0 bg-cover bg-right-top bg-no-repeat opacity-15 pointer-events-none"
         style={{ backgroundImage: 'url(/assets/nerdy-bg.jpg)' }}
       />
-      <div className="fixed inset-0 bg-gradient-to-l from-transparent via-[#300a24]/50 to-[#300a24]/90 pointer-events-none" />
+      <div className="fixed inset-0 bg-gradient-to-l from-transparent via-black/60 to-black/95 pointer-events-none" />
       
-      <div 
-        ref={terminalRef}
-        className="max-w-5xl mx-auto relative z-10"
-      >
-        {/* Terminal Output */}
-        <div className="mb-4">
-          {history.map((item, index) => (
-            <div key={index} className="mb-2">
-              {item.command && (
-                <div className="flex items-start gap-2">
-                  <span className="text-green-400">hesham@ubuntu:~$</span>
-                  <span className="text-white">{item.command}</span>
-                </div>
-              )}
-              {item.output && (
-                <pre className="text-gray-300 whitespace-pre-wrap mt-1 ml-0">
-{item.output}
-                </pre>
-              )}
-            </div>
-          ))}
+      {/* Scanline effect for CRT monitor look */}
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-10"
+        style={{
+          background: 'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px)'
+        }}
+      />
+      
+      {/* Terminal window with border */}
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Terminal Header Bar */}
+        <div className="bg-gradient-to-r from-gray-800 to-gray-900 border-2 border-[#00ff00] rounded-t-lg px-4 py-2 flex items-center gap-2 shadow-lg shadow-[#00ff00]/20">
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500 border border-red-700"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-yellow-700"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500 border border-green-700"></div>
+          </div>
+          <div className="flex-1 text-center text-[#00ff00] text-sm font-bold tracking-wider">
+            HESHAM@TERMINAL - /home/hesham - AI HACKER MODE 🚀
+          </div>
+          <div className="text-xs text-[#00ff00] opacity-70">
+            {new Date().toLocaleTimeString()}
+          </div>
         </div>
 
-        {/* Command Input */}
-        <div className="flex items-start gap-2">
-          <span className="text-green-400">hesham@ubuntu:~$</span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={currentCommand}
-            onChange={(e) => setCurrentCommand(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent border-none outline-none text-white"
-            autoFocus
-            spellCheck={false}
-          />
+        {/* Terminal Body */}
+        <div 
+          ref={terminalRef}
+          className="bg-black/90 border-2 border-t-0 border-[#00ff00] rounded-b-lg p-6 backdrop-blur-sm shadow-2xl shadow-[#00ff00]/30"
+          style={{
+            boxShadow: '0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 50px rgba(0, 255, 0, 0.05)'
+          }}
+        >
+          {/* Terminal Output */}
+          <div className="mb-4">
+            {history.map((item, index) => (
+              <div key={index} className="mb-2">
+                {item.command && (
+                  <div className="flex items-start gap-2">
+                    <span className="text-[#00ff00] font-bold animate-pulse">┌─[hesham@ai-terminal]─[~]</span>
+                  </div>
+                )}
+                {item.command && (
+                  <div className="flex items-start gap-2 mb-1">
+                    <span className="text-[#00ff00] font-bold">└─$</span>
+                    <span className="text-[#00ffff]">{item.command}</span>
+                  </div>
+                )}
+                {item.output && (
+                  <pre className="text-[#00ff00] whitespace-pre-wrap mt-1 ml-0 leading-relaxed opacity-90">
+{item.output}
+                  </pre>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Command Input */}
+          <div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#00ff00] font-bold animate-pulse">┌─[hesham@ai-terminal]─[~]</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#00ff00] font-bold">└─$</span>
+              <input
+                ref={inputRef}
+                type="text"
+                value={currentCommand}
+                onChange={(e) => setCurrentCommand(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="flex-1 bg-transparent border-none outline-none text-[#00ffff] caret-[#00ff00]"
+                style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.5)' }}
+                autoFocus
+                spellCheck={false}
+              />
+              <span className="text-[#00ff00] animate-pulse">█</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
