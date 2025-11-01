@@ -184,7 +184,8 @@ Total Visits: ${visitorStats.totalVisits} | Unique Visitors: ${visitorStats.uniq
   publications   - Research publications
   contact        - Contact information
   projects       - Notable projects
-  resume         - Download resume (PDF/JSON)
+  resume         - Download resume PDF
+  resume json    - View resume in JSON format
   social         - Social media links with ASCII art
 
 🎮 FUN & GAMES:
@@ -436,20 +437,47 @@ Hint: Try the Konami code or type some "dangerous" commands 😈
 
       case "resume":
       case "cv":
+      case "resume pdf":
+      case "cv pdf":
         output = `
-Downloading resume...
+📄 Downloading resume...
 [████████████████████████████████████████] 100%
 
-✓ Resume downloaded successfully!
+✓ Resume PDF downloaded successfully!
 
-Available formats:
-  • PDF:  /downloads/hesham-haroon-resume.pdf
-  • JSON: /downloads/resume.json
+File: Hesham-Haroon-AI-Engineer-Resume.pdf
+Format: PDF
+Size: ~68KB
 
-Pro tip: Type 'resume --json' to view JSON format in terminal
+Opening download in new tab...
 `;
-        // Trigger actual download
-        window.open("/resume.json", "_blank");
+        // Trigger actual PDF download
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = '/assets/Hesham-Haroon-AI-Engineer-Resume.pdf';
+          link.download = 'Hesham-Haroon-AI-Engineer-Resume.pdf';
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 500);
+        break;
+
+      case "resume json":
+      case "cv json":
+      case "resume --json":
+        output = `
+📋 Opening JSON resume in new tab...
+[████████████████████████████████████████] 100%
+
+✓ JSON format opened!
+
+💡 Tip: Type 'resume' or 'cv' to download the PDF version
+`;
+        // Open JSON resume in new tab
+        setTimeout(() => {
+          window.open('/resume.json', '_blank');
+        }, 500);
         break;
 
       case "hack":
