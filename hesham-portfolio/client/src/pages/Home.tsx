@@ -590,12 +590,19 @@ Type 'help' to see available commands.`;
 
   return (
     <div 
-      className="min-h-screen bg-[#300a24] text-[#ffffff] font-mono p-4"
+      className="min-h-screen bg-[#300a24] text-[#ffffff] font-mono p-4 relative overflow-hidden"
       onClick={() => inputRef.current?.focus()}
     >
+      {/* Nerdy background image with overlay */}
+      <div 
+        className="fixed inset-0 bg-cover bg-right-top bg-no-repeat opacity-20 pointer-events-none"
+        style={{ backgroundImage: 'url(/assets/nerdy-bg.jpg)' }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-l from-transparent via-[#300a24]/50 to-[#300a24]/90 pointer-events-none" />
+      
       <div 
         ref={terminalRef}
-        className="max-w-5xl mx-auto"
+        className="max-w-5xl mx-auto relative z-10"
       >
         {/* Terminal Output */}
         <div className="mb-4">
