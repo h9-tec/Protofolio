@@ -33,9 +33,10 @@ Type 'about' to learn more about me.
 
   useEffect(() => {
     // Auto-scroll to bottom when new output is added
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-    }
+    // Use setTimeout to ensure DOM has updated with new content
+    setTimeout(() => {
+      inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 0);
   }, [history]);
 
   const executeCommand = (cmd: string) => {
