@@ -1,0 +1,57 @@
+{
+  "name": "Hesham Haroon",
+  "title": "AI Team Lead",
+  "email": "heshamharoon19@gmail.com",
+  "phone": "01144223563",
+  "location": "Cairo, Egypt",
+  "summary": "AI engineer passionate about building impactful AI systems. Leading AI transformation at Egyptian Company For Cosmetics (ECC), developing AI tools that boost productivity and streamline operations.",
+  "skills": [
+    "GenAI & Agentic LLMs",
+    "Natural Language Processing",
+    "Python Development",
+    "Machine Learning",
+    "AWS Cloud Services",
+    "Deep Learning",
+    "Text Analysis & Mining",
+    "Language Translation"
+  ],
+  "experience": [
+    {
+      "title": "AI Team Lead",
+      "company": "Egyptian Company For Cosmetics - ECC",
+      "period": "2025-Present",
+      "highlights": [
+        "Leading AI transformation across all departments",
+        "Developing AI tools to boost productivity by 40%",
+        "Collaborating with cross-functional teams"
+      ]
+    },
+    {
+      "title": "Senior AI Engineer",
+      "company": "Robusta Technology Group (Remote)",
+      "period": "Jan 2025 - Sep 2025",
+      "highlights": [
+        "Enhanced NLP models and drove scalable AI solutions",
+        "Implemented cutting-edge AI architectures"
+      ]
+    },
+    {
+      "title": "Senior NLP Engineer",
+      "company": "WideBot, Cairo, Egypt",
+      "period": "Jul 2024 - Jan 2025",
+      "highlights": [
+        "Enhanced NLP model performance by 25%",
+        "Implemented state-of-the-art language models"
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor's Degree in Linguistics",
+    "institution": "Minia University"
+  },
+  "links": {
+    "linkedin": "linkedin.com/in/hesham-haroon",
+    "github": "github.com/h9-tec"
+  }
+}
+
