@@ -20,7 +20,7 @@ export default function HomeEnhanced() {
   const [currentCommand, setCurrentCommand] = useState("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [theme, setTheme] = useState<Theme>(getTheme("matrix"));
+  const [theme, setTheme] = useState<Theme>(getTheme("deathnote"));
   const [matrixEnabled, setMatrixEnabled] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set());
@@ -567,22 +567,44 @@ Achievement unlocked: H4CK3R M0D3
     >
       <MatrixRain enabled={matrixEnabled} />
 
-      {/* Background image with overlay */}
+      {/* Enhanced L (Death Note) background */}
       <div
-        className="fixed inset-0 bg-cover bg-right-top bg-no-repeat opacity-15 pointer-events-none"
-        style={{ backgroundImage: "url(/assets/nerdy-bg.jpg)" }}
+        className="fixed inset-0 bg-cover bg-right-center bg-no-repeat opacity-30 pointer-events-none"
+        style={{ 
+          backgroundImage: "url(/assets/nerdy-bg.jpg)",
+          filter: "contrast(1.2) brightness(0.9)",
+        }}
       />
+      {/* Spotlight effect on L */}
       <div
-        className="fixed inset-0 bg-gradient-to-l from-transparent pointer-events-none"
-        style={{ backgroundImage: `linear-gradient(to left, transparent, ${theme.background}cc, ${theme.background}f0)` }}
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 800px 1000px at 75% 50%, transparent 0%, ${theme.background}dd 60%, ${theme.background} 100%)`,
+        }}
+      />
+      {/* Subtle vignette */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at center, transparent 0%, ${theme.background}88 100%)`,
+        }}
       />
 
-      {/* Scanline effect */}
+      {/* Subtle scanline effect for CRT feel */}
       <div
-        className="fixed inset-0 pointer-events-none z-50 opacity-10"
+        className="fixed inset-0 pointer-events-none z-50 opacity-5"
         style={{
           background:
-            "repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px)",
+            "repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 2px)",
+        }}
+      />
+      
+      {/* Subtle grid pattern for nerd aesthetic */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0 opacity-5"
+        style={{
+          backgroundImage: `linear-gradient(${theme.border}22 1px, transparent 1px), linear-gradient(90deg, ${theme.border}22 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
         }}
       />
 
@@ -590,22 +612,26 @@ Achievement unlocked: H4CK3R M0D3
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Terminal Header */}
         <div
-          className="border-2 rounded-t-lg px-4 py-2 flex items-center gap-2"
+          className="border-2 rounded-t-lg px-4 py-3 flex items-center gap-3 backdrop-blur-md"
           style={{
             borderColor: theme.border,
-            background: `linear-gradient(to right, #1a1a1a, #2a2a2a)`,
-            boxShadow: `0 0 10px ${theme.glow}`,
+            background: `linear-gradient(135deg, #1a1a1aee, #2a2a2aee)`,
+            boxShadow: `0 0 15px ${theme.glow}, inset 0 1px 0 rgba(255,255,255,0.1)`,
           }}
         >
           <div className="flex gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="w-3 h-3 rounded-full bg-red-500 border border-red-700 shadow-lg shadow-red-500/50"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-yellow-700 shadow-lg shadow-yellow-500/50"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500 border border-green-700 shadow-lg shadow-green-500/50"></div>
           </div>
-          <div className="flex-1 text-center text-sm font-bold tracking-wider" style={{ color: theme.text }}>
-            HESHAM@AI-TERMINAL - /home/hesham - {theme.name.toUpperCase()} MODE 🚀
+          <div className="flex-1 text-center text-sm font-bold tracking-widest" style={{ color: theme.prompt, textShadow: `0 0 10px ${theme.glow}` }}>
+            ⚡ HESHAM@AI-TERMINAL - /home/hesham - {theme.name.toUpperCase()} MODE ⚡
           </div>
-          <div className="text-xs opacity-70" style={{ color: theme.text }}>
+          <div className="text-xs font-mono px-2 py-1 rounded" style={{ 
+            color: theme.command,
+            background: 'rgba(0,0,0,0.3)',
+            border: `1px solid ${theme.border}44`,
+          }}>
             {new Date().toLocaleTimeString()}
           </div>
         </div>
@@ -613,11 +639,12 @@ Achievement unlocked: H4CK3R M0D3
         {/* Terminal Body */}
         <div
           ref={terminalRef}
-          className="border-2 border-t-0 rounded-b-lg p-6 backdrop-blur-sm"
+          className="border-2 border-t-0 rounded-b-lg p-8 backdrop-blur-md"
           style={{
             borderColor: theme.border,
-            backgroundColor: `${theme.background}e6`,
-            boxShadow: theme.shadow,
+            backgroundColor: `${theme.background}f5`,
+            boxShadow: `${theme.shadow}, inset 0 0 100px rgba(0,0,0,0.3)`,
+            minHeight: '70vh',
           }}
         >
           {/* Terminal Output */}

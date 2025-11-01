@@ -10,15 +10,25 @@ export interface Theme {
 }
 
 export const themes: Record<string, Theme> = {
+  deathnote: {
+    name: "Death Note",
+    background: "#0d1117",
+    text: "#7ee787",
+    prompt: "#58a6ff",
+    command: "#79c0ff",
+    border: "#58a6ff",
+    glow: "rgba(88, 166, 255, 0.5)",
+    shadow: "0 0 20px rgba(88, 166, 255, 0.3)",
+  },
   matrix: {
     name: "Matrix",
-    background: "#000000",
-    text: "#00ff00",
-    prompt: "#00ff00",
-    command: "#00ffff",
-    border: "#00ff00",
-    glow: "rgba(0, 255, 0, 0.5)",
-    shadow: "0 0 20px rgba(0, 255, 0, 0.3)",
+    background: "#0a0e0a",
+    text: "#00ff41",
+    prompt: "#00ff41",
+    command: "#39ff14",
+    border: "#00ff41",
+    glow: "rgba(0, 255, 65, 0.6)",
+    shadow: "0 0 25px rgba(0, 255, 65, 0.4)",
   },
   hacker: {
     name: "Hacker",
@@ -63,6 +73,6 @@ export const themes: Record<string, Theme> = {
 };
 
 export const getTheme = (themeName: string): Theme => {
-  return themes[themeName] || themes.matrix;
+  return themes[themeName] || themes.deathnote;
 };
 
