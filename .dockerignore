@@ -1,0 +1,18 @@
+#.dockerignore at repo root
+
+.git
+**/node_modules
+**/.pnpm-store
+**/dist
+**/.next
+**/.turbo
+**/build
+**/.DS_Store
+**/coverage
+
+# editor/OS noise
+.vscode
+.idea
+Thumbs.db
+
+
