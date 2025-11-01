@@ -6,6 +6,7 @@ import { getTheme, Theme, themes } from "@/utils/themes";
 import { achievements, unlockAchievement } from "@/utils/achievements";
 import { useAudioFeedback } from "@/hooks/useAudioFeedback";
 import { getCommandOutput } from "@/utils/commandOutputs";
+import { trackVisitor, getVisitorStats } from "@/utils/visitorTracker";
 
 interface CommandOutput {
   command: string;
@@ -28,7 +29,7 @@ export default function HomeEnhanced() {
   const [uniqueCommands, setUniqueCommands] = useState<Set<string>>(new Set());
   const [showSnake, setShowSnake] = useState(false);
   const [konami, setKonami] = useState<string[]>([]);
-  const [visitorCount] = useState(Math.floor(Math.random() * 1000) + 500);
+  const [visitorStats, setVisitorStats] = useState({ totalVisits: 0, uniqueVisitors: 0, isNewVisitor: false });
 
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -62,6 +63,26 @@ export default function HomeEnhanced() {
     return () => window.removeEventListener("keydown", handleKonami as any);
   }, [konami, unlockedAchievements]);
 
+  // Track visitor on mount
+  useEffect(() => {
+    const stats = trackVisitor();
+    setVisitorStats(stats);
+    
+    // Show welcome message for new visitors
+    if (stats.isNewVisitor) {
+      setTimeout(() => {
+        setHistory((prev) => [
+          ...prev,
+          {
+            command: "",
+            output: `🎉 Welcome, new visitor! You are visitor #${stats.uniqueVisitors}!`,
+            timestamp: new Date(),
+          },
+        ]);
+      }, 1000);
+    }
+  }, []);
+
   useEffect(() => {
     if (showBoot) return;
 
@@ -76,7 +97,7 @@ Type 'help' to see all available commands.
 Type 'demo' to see an automated demonstration.
 Type 'achievements' to track your progress.
 
-Current Visitors: ${visitorCount} | Theme: ${theme.name} | Audio: ${audioEnabled ? "ON" : "OFF"}
+Total Visits: ${visitorStats.totalVisits} | Unique Visitors: ${visitorStats.uniqueVisitors} | Theme: ${theme.name} | Audio: ${audioEnabled ? "ON" : "OFF"}
 `;
 
     setHistory([
@@ -88,7 +109,7 @@ Current Visitors: ${visitorCount} | Theme: ${theme.name} | Audio: ${audioEnabled
     ]);
 
     inputRef.current?.focus();
-  }, [showBoot, theme.name, audioEnabled, visitorCount]);
+  }, [showBoot, theme.name, audioEnabled, visitorStats]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -336,7 +357,8 @@ Achievements Unlocked:    ${unlockedAchievements.size}/${achievements.length}
 Current Theme:            ${theme.name}
 Matrix Effect:            ${matrixEnabled ? "ENABLED" : "DISABLED"}
 Sound Effects:            ${audioEnabled ? "ENABLED" : "DISABLED"}
-Total Visitors:           ${visitorCount}
+Total Visits:             ${visitorStats.totalVisits}
+Unique Visitors:          ${visitorStats.uniqueVisitors}
 Session Start:            ${history[0]?.timestamp.toLocaleTimeString()}
 `;
         break;
